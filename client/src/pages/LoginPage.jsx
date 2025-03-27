@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
+import ThemeToggle from '../components/ThemeToggle';
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
@@ -27,10 +28,16 @@ export default function LoginPage() {
             console.log('✅ Успешный вход:', data);
 
             localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
+            localStorage.setItem('user', JSON.stringify(data));
 
             setError('');
-            navigate('/dashboard');
+
+            // 🔁 Перенаправление по роли
+            if (data.role === 'Администратор') {
+                navigate('/admin');
+            } else {
+                navigate('/dashboard');
+            }
         } catch (err) {
             console.error('❌ Ошибка:', err);
             setError('Ошибка соединения с сервером');
@@ -38,37 +45,40 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="login-container">
-            <div className="logo">
-                <img src="/Logo.png" alt="Логотип Завода Металлист" />
+        <>
+            <ThemeToggle />
+            <div className="login-container">
+                <div className="logo">
+                    <img src="/Logo.png" alt="Логотип Завода Металлист" />
+                </div>
+                <h2>Вход в систему</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="input-group">
+                        <label htmlFor="username">Имя пользователя</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="password">Пароль</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+                    <button type="submit">Войти</button>
+                </form>
             </div>
-            <h2>Вход в систему</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="input-group">
-                    <label htmlFor="username">Имя пользователя</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="input-group">
-                    <label htmlFor="password">Пароль</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
-                <button type="submit">Войти</button>
-            </form>
-        </div>
+        </>
     );
 }

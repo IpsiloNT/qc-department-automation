@@ -52,3 +52,27 @@ button {
 button:hover {
     background-color: #b71c1c;
 }
+
+/* Поддержка тёмной темы */
+.dark-theme .login-container {
+    background-color: rgba(30, 30, 30, 0.92);
+    color: #e0e0e0;
+}
+
+.dark-theme .input-group label,
+.dark-theme input {
+    color: #e0e0e0;
+}
+
+.dark-theme input {
+    background-color: #2a2a2a;
+    border: 1px solid #555;
+}
+
+.dark-theme button {
+    background-color: #b71c1c;
+}
+
+.dark-theme button:hover {
+    background-color: #8e1717;
+}

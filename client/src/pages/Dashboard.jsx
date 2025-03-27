@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './Dashboard.css';
+import ThemeToggle from '../components/ThemeToggle';
 
 export default function Dashboard() {
     const [routeCards, setRouteCards] = useState([]);
@@ -72,73 +73,112 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="dashboard-container">
-            <h1>📋 Маршрутные карты</h1>
-            {routeCards.map(card => (
-                <div key={card.route_card_number} className="route-card">
-                    <h2>Маршрутная карта № {card.route_card_number}</h2>
-                    <p><strong>Заказ:</strong> {card.order_number}</p>
-                    <p><strong>Дата:</strong> {new Date(card.date).toLocaleDateString()}</p>
-                    <p><strong>Закрытие:</strong> {new Date(card.close_date).toLocaleDateString()}</p>
-                    <p><strong>Количество:</strong> {card.quantity}</p>
+        <>
+            <ThemeToggle />
+            <div className="dashboard-container">
+                <h1>📋 Маршрутные карты</h1>
+                {routeCards.map((card) => {
+                    const isExpanded = expandedCards[card.route_card_number];
+                    return (
+                        <div key={card.route_card_number} className="route-card">
+                            <h2>Маршрутная карта № {card.route_card_number}</h2>
+                            <p><strong>Заказ:</strong> {card.order_number}</p>
+                            <p><strong>Дата:</strong> {new Date(card.date).toLocaleDateString()}</p>
+                            <p><strong>Закрытие:</strong> {new Date(card.close_date).toLocaleDateString()}</p>
+                            <p><strong>Количество:</strong> {card.quantity}</p>
 
-                    <button onClick={() => toggleCard(card.route_card_number)}>
-                        {expandedCards[card.route_card_number] ? '🔽 Свернуть детали' : '▶️ Развернуть детали'}
-                    </button>
+                            <button onClick={() => toggleCard(card.route_card_number)}>
+                                {isExpanded ? '🔽 Свернуть детали' : '▶️ Развернуть детали'}
+                            </button>
 
-                    {expandedCards[card.route_card_number] && (
-                        <div className="details-list">
-                            <h3>🛠️ Детали:</h3>
-                            {card.details.map((d, i) => {
-                                const key = `${d.year_letter}${d.number}`;
-                                const values = measurements[key] || {};
-                                return (
-                                    <div className="detail-item" key={i}>
-                                        <p><strong>📐 Чертеж:</strong> {d.drawing_number}</p>
-                                        <p><strong>🔩 Название:</strong> {d.name}</p>
-                                        <p><strong>🆔 Деталь:</strong> {key}</p>
-                                        <p><strong>📏 Размеры по КД:</strong> Ø{d.diameter} × {d.width} × {d.height}</p>
-                                        <p><strong>⚖️ Масса по КД:</strong> {d.weight} кг</p>
-                                        <p><strong>🟢 Статус:</strong> {d.status}</p>
+                            {isExpanded && (
+                                <div className="details-list">
+                                    <h3>🛠️ Детали:</h3>
+                                    {card.details.map((d, i) => {
+                                        const key = `${d.year_letter}${d.number}`;
+                                        const values = measurements[key] || {};
+                                        return (
+                                            <div className="detail-item" key={i}>
+                                                <p><strong>📐 Чертеж:</strong> {d.drawing_number}</p>
+                                                <p><strong>🔩 Название:</strong> {d.name}</p>
+                                                <p><strong>🆔 Деталь:</strong> {key}</p>
+                                                <p><strong>📏 Размеры по КД:</strong> Ø{d.diameter} × {d.width} × {d.height}</p>
+                                                <p><strong>⚖️ Масса по КД:</strong> {d.weight} кг</p>
+                                                <p><strong>🟢 Статус:</strong> {d.status}</p>
 
-                                        <div className="measure-form">
-                                            <h4>📋 Ввод фактических замеров:</h4>
-                                            <div className="measure-fields">
-                                                <div><label>Ø Диаметр</label>
-                                                    <input type="number" step="0.001" value={values.diameter || ''} onChange={(e) => handleInputChange(key, 'diameter', e.target.value)} />
-                                                </div>
-                                                <div><label>↔️ Ширина</label>
-                                                    <input type="number" step="0.001" value={values.width || ''} onChange={(e) => handleInputChange(key, 'width', e.target.value)} />
-                                                </div>
-                                                <div><label>↕️ Высота</label>
-                                                    <input type="number" step="0.001" value={values.height || ''} onChange={(e) => handleInputChange(key, 'height', e.target.value)} />
-                                                </div>
-                                                <div><label>🧱 Толщина</label>
-                                                    <input type="number" step="0.001" value={values.thickness || ''} onChange={(e) => handleInputChange(key, 'thickness', e.target.value)} />
-                                                </div>
-                                                <div><label>⚖️ Масса</label>
-                                                    <input type="number" step="0.001" value={values.weight || ''} onChange={(e) => handleInputChange(key, 'weight', e.target.value)} />
-                                                </div>
-                                                <div>
-                                                    <label>📌 Статус:</label>
-                                                    <select value={values.status_id || ''} onChange={(e) => handleInputChange(key, 'status_id', e.target.value)}>
-                                                        <option value="">Выбрать</option>
-                                                        <option value="1">Годен</option>
-                                                        <option value="2">Брак</option>
-                                                        <option value="3">Требует доработки</option>
-                                                    </select>
+                                                <div className="measure-form">
+                                                    <h4>📋 Ввод фактических замеров:</h4>
+                                                    <div className="measure-fields">
+                                                        <div>
+                                                            <label>Ø Диаметр</label>
+                                                            <input
+                                                                type="number"
+                                                                step="0.001"
+                                                                value={values.diameter || ''}
+                                                                onChange={(e) => handleInputChange(key, 'diameter', e.target.value)}
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label>↔️ Ширина</label>
+                                                            <input
+                                                                type="number"
+                                                                step="0.001"
+                                                                value={values.width || ''}
+                                                                onChange={(e) => handleInputChange(key, 'width', e.target.value)}
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label>↕️ Высота</label>
+                                                            <input
+                                                                type="number"
+                                                                step="0.001"
+                                                                value={values.height || ''}
+                                                                onChange={(e) => handleInputChange(key, 'height', e.target.value)}
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label>🧱 Толщина</label>
+                                                            <input
+                                                                type="number"
+                                                                step="0.001"
+                                                                value={values.thickness || ''}
+                                                                onChange={(e) => handleInputChange(key, 'thickness', e.target.value)}
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label>⚖️ Масса</label>
+                                                            <input
+                                                                type="number"
+                                                                step="0.001"
+                                                                value={values.weight || ''}
+                                                                onChange={(e) => handleInputChange(key, 'weight', e.target.value)}
+                                                            />
+                                                        </div>
+                                                        <div>
+                                                            <label>📌 Статус:</label>
+                                                            <select
+                                                                value={values.status_id || ''}
+                                                                onChange={(e) => handleInputChange(key, 'status_id', e.target.value)}
+                                                            >
+                                                                <option value="">Выбрать</option>
+                                                                <option value="1">Годен</option>
+                                                                <option value="2">Брак</option>
+                                                                <option value="3">Требует доработки</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <button onClick={() => submitMeasurement({ ...d, route_card_number: card.route_card_number })}>
+                                                        ✅ Сохранить замер
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <button onClick={() => submitMeasurement({ ...d, route_card_number: card.route_card_number })}>✅ Сохранить замер</button>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                                        );
+                                    })}
+                                </div>
+                            )}
                         </div>
-                    )}
-                </div>
-            ))}
-        </div>
-    );
-
-}
+                    );
+                })}
+            </div>
+        </>
+    )};

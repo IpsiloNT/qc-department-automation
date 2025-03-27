@@ -1,0 +1,295 @@
+/* 🎨 Темы */
+:root {
+    --background: #f8f9fa;
+    --text-color: #111;
+    --table-bg: #ffffff;
+    --table-header-bg: #0d47a1;
+    --table-hover: #f5faff;
+    --footer-bg: linear-gradient(135deg, #0d47a1, #1565c0);
+    --sidebar-bg: linear-gradient(to bottom, #0d47a1, #1565c0);
+}
+
+.dark-theme {
+    --background: #121212;
+    --text-color: #e0e0e0;
+    --table-bg: #1e1e1e;
+    --table-header-bg: #333;
+    --table-hover: #2a2a2a;
+    --footer-bg: linear-gradient(135deg, #1f1f1f, #2c2c2c);
+    --sidebar-bg: linear-gradient(to bottom, #1f1f1f, #2c2c2c);
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Панель */
+.admin-panel {
+    padding: 40px;
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--text-color);
+    flex: 1;
+    transition: all 0.3s ease-in-out;
+}
+
+.admin-panel h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.admin-panel h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.admin-panel table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: var(--table-bg);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.admin-panel th,
+.admin-panel td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    font-size: 15px;
+}
+
+.admin-panel th {
+    background-color: var(--table-header-bg);
+    color: white;
+    font-weight: 600;
+}
+
+.admin-panel tr:hover {
+    background-color: var(--table-hover);
+}
+
+.admin-panel input[type="text"],
+.admin-panel select {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--table-bg);
+    color: var(--text-color);
+}
+
+.admin-panel button {
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1976d2;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.admin-panel button:hover {
+    background-color: #125aa0;
+}
+
+.admin-panel button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Контейнер */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    background: var(--background);
+}
+
+/* Меню */
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 240px;
+    background: var(--sidebar-bg);
+    color: white;
+    padding: 24px;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar h2 {
+    margin: 0 0 20px;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.25s ease;
+    transform: translateX(0);
+    opacity: 0;
+    animation: fadeInSlide 0.5s forwards;
+}
+
+.sidebar li:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.02);
+}
+
+.sidebar li:nth-child(1) { animation-delay: 0.05s; }
+.sidebar li:nth-child(2) { animation-delay: 0.1s; }
+.sidebar li:nth-child(3) { animation-delay: 0.15s; }
+.sidebar li:nth-child(4) { animation-delay: 0.2s; }
+.sidebar li:nth-child(5) { animation-delay: 0.25s; }
+.sidebar li:nth-child(6) { animation-delay: 0.3s; }
+.sidebar li:nth-child(7) { animation-delay: 0.35s; }
+
+/* Эффекты */
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Футер */
+.admin-footer {
+    margin-top: 50px;
+    padding: 40px 20px;
+    background: var(--footer-bg);
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    animation: slideInUp 0.8s ease-out;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeIn 1.2s forwards;
+    animation-delay: 0.3s;
+}
+
+.footer-content p {
+    margin: 4px 0;
+    letter-spacing: 0.3px;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Тогглер темы */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #66bb6a;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Статичная панель переключения темы */
+.theme-toggle-bar {
+    position: absolute;
+    top: 0;
+    left: 240px; /* ширина sidebar */
+    width: calc(100% - 240px);
+    background: transparent;
+    padding: 16px 24px;
+    z-index: 99;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.theme-toggle {
+    position: relative;
+}

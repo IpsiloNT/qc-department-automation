@@ -84,3 +84,34 @@ button:hover {
     border-radius: 4px;
     font-size: 14px;
 }
+
+.dark-theme .dashboard-container {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-theme .route-card {
+    background-color: #1e1e1e;
+    border-left: 6px solid #444;
+}
+
+.dark-theme .detail-item {
+    background: #2a2a2a;
+    border-left: 4px solid #444;
+}
+
+.dark-theme .measure-form {
+    background-color: #222;
+    border-left-color: #444;
+}
+
+.dark-theme .measure-fields input,
+.dark-theme .measure-fields select {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #555;
+}
+
+.dark-theme .measure-form h4 {
+    color: #bbdefb;
+}
