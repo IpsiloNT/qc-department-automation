@@ -1,0 +1,86 @@
+.dashboard-container {
+    padding: 40px;
+    font-family: 'Arial', sans-serif;
+}
+
+.route-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-left: 6px solid #c62828;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.route-card:hover {
+    transform: translateY(-4px);
+}
+
+.details-list {
+    margin-top: 15px;
+    padding-left: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.detail-item {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    border-left: 4px solid #b71c1c;
+}
+
+button {
+    margin-top: 10px;
+    background-color: #c62828;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #b71c1c;
+}
+
+.measure-form {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #eef3f7;
+    border-radius: 8px;
+    border-left: 4px solid #1565c0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.measure-form h4 {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #1565c0;
+}
+
+.measure-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.measure-fields > div {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 150px;
+}
+
+.measure-fields label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.measure-fields input {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
