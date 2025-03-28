@@ -30,14 +30,15 @@ export default function LoginPage() {
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data));
 
-            setError('');
+            const role = data.role || JSON.parse(localStorage.getItem('user'))?.role;
 
-            // 🔁 Перенаправление по роли
-            if (data.role === 'Администратор') {
+            if (role === 'Администратор') {
                 navigate('/admin');
             } else {
                 navigate('/dashboard');
             }
+
+
         } catch (err) {
             console.error('❌ Ошибка:', err);
             setError('Ошибка соединения с сервером');

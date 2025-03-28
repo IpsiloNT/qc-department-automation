@@ -28,7 +28,6 @@ router.get('/admin/users', async (req, res) => {
     }
 });
 
-
 // 📌 Получить список всех ролей
 router.get('/admin/roles', async (req, res) => {
     try {
@@ -46,6 +45,18 @@ router.put('/admin/users/:userId', async (req, res) => {
     const { login, role, fullName, position } = req.body;
 
     try {
+        if (!login || !role || !fullName || !position) {
+            return res.status(400).json({ message: 'Все поля обязательны для заполнения' });
+        }
+
+        const nameParts = fullName.trim().split(' ');
+        if (nameParts.length < 2) {
+            return res.status(400).json({ message: 'ФИО должно содержать как минимум фамилию и имя' });
+        }
+
+        const [last_name, first_name, ...rest] = nameParts;
+        const patronymic = rest.join(' ') || null;
+
         // Найти role_id по названию роли
         const roleResult = await pool.query(`SELECT role_id FROM role WHERE name = $1`, [role]);
         if (roleResult.rows.length === 0) {
@@ -58,10 +69,6 @@ router.put('/admin/users/:userId', async (req, res) => {
             `UPDATE users SET login = $1, role_id = $2 WHERE user_id = $3`,
             [login, role_id, userId]
         );
-
-        // Разбить ФИО
-        const [last_name, first_name, ...rest] = fullName.trim().split(' ');
-        const patronymic = rest.join(' ') || null;
 
         // Обновить или вставить в employee
         await pool.query(`
