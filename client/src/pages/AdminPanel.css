@@ -293,3 +293,7 @@ input:checked + .slider:before {
 .theme-toggle {
     position: relative;
 }
+
+.sidebar li {
+    cursor: pointer;
+}

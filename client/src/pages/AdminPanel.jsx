@@ -97,7 +97,7 @@ export default function AdminPanel() {
                     <li>🧾 Журнал и замеры</li>
                     <li>🛠️ Справочники</li>
                     <li>📑 Документы</li>
-                    <li>🧾 Логирование</li>
+                    <li onClick={() => navigate('/admin/logs')}>🧾 Логирование</li>
                     <li>🧠 Дополнительно</li>
                 </ul>
             </aside>

@@ -14,6 +14,8 @@ const routeCardsRoutes = require('./routes/routeCards.route');
 const measureRoutes = require('./routes/measure.route'); // ✅ добавлено
 const adminRoutes = require('./routes/admin.route');
 const logRoutes = require('./routes/logs.route');
+const logsRoute = require('./routes/logs.route');
+
 
 
 
@@ -22,6 +24,8 @@ app.use('/api', routeCardsRoutes);
 app.use('/api', measureRoutes); // ✅ добавлено
 app.use('/api', adminRoutes);
 app.use('/api', logRoutes);
+app.use('/api', logsRoute);
+
 
 
 
